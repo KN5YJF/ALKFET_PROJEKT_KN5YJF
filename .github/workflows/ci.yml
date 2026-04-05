@@ -12,21 +12,25 @@ jobs:
       contents: read
       packages: write
 
+    env:
+      BACKEND_IMAGE: ghcr.io/kn5yjf/alkfet_projekt_kn5yjf/backend:latest
+      FRONTEND_IMAGE: ghcr.io/kn5yjf/alkfet_projekt_kn5yjf/frontend:latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Login to GHCR
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
 
       - name: Build backend image
-        run: docker build -t ghcr.io/${{ github.repository }}/backend:latest ./backend/MyApi
+        run: docker build -t $BACKEND_IMAGE ./backend/MyApi
 
       - name: Build frontend image
-        run: docker build -t ghcr.io/${{ github.repository }}/frontend:latest ./frontend
+        run: docker build -t $FRONTEND_IMAGE ./frontend
 
       - name: Push backend image
-        run: docker push ghcr.io/${{ github.repository }}/backend:latest
+        run: docker push $BACKEND_IMAGE
 
       - name: Push frontend image
-        run: docker push ghcr.io/${{ github.repository }}/frontend:latest
+        run: docker push $FRONTEND_IMAGE
