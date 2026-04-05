@@ -1,0 +1,15 @@
+<div style="background-color: #f0f0f0; padding: 50px; text-align: center; font-family: sans-serif;">
+  <h1 style="color: #1976d2;">Saját To-Do Alkalmazás</h1>
+  <p>Ha ezt látod, a frontend sikeresen frissült!</p>
+  <hr>
+  
+  <ul *ngIf="tasks.length > 0; else ures">
+    <li *ngFor="let task of tasks">
+      {{ task.Title }} - {{ task.IsCompleted ? 'Kész' : 'Folyamatban' }}
+    </li>
+  </ul>
+  
+  <ng-template #ures>
+    <p>Nincsenek adatok. Ellenőrizd a Swaggert!</p>
+  </ng-template>
+</div>
