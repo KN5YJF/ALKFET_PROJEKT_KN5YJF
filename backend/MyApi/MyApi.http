@@ -1,0 +1,2 @@
+GET http://localhost:5237/api/todo
+Accept: application/json
