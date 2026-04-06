@@ -116,4 +116,4 @@ Kubernetes deploy
 Helm alapú adatbázis telepítés
 ArgoCD alapú CD (GitOps)
 
-A rendszer automatizált, skálázható és reprodukálható módon működik.  
+A rendszer automatizált, skálázható és reprodukálható módon működik.
