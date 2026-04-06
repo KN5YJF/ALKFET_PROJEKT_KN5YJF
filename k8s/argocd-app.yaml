@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: alkfet-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/KN5YJF/ALKFET_PROJEKT_KN5YJF.git
+    targetRevision: main
+    path: k8s
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
