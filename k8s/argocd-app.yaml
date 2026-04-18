@@ -1,6 +1,38 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
+  name: alkfet-mongodb
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: mongodb
+    targetRevision: "16.x.x"   # Legújabb stabil Bitnami MongoDB chart
+    helm:
+      valueFiles:
+        - $values/k8s/mongodb-values.yaml
+  sources:
+    - repoURL: https://charts.bitnami.com/bitnami
+      chart: mongodb
+      targetRevision: "16.x.x"
+      helm:
+        valueFiles:
+          - $values/k8s/mongodb-values.yaml
+    - repoURL: https://github.com/KN5YJF/ALKFET_PROJEKT_KN5YJF.git
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
   name: alkfet-app
   namespace: argocd
 spec:

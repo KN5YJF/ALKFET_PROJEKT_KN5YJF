@@ -19,6 +19,6 @@ spec:
             - containerPort: 8080
           env:
             - name: MongoDbSettings__ConnectionString
-              value: "mongodb://mongodb:27017"
+              value: "mongodb://mongodb:27017"   # Megegyezik a Helm chart service nevével
             - name: MongoDbSettings__DatabaseName
               value: "TodoDb"

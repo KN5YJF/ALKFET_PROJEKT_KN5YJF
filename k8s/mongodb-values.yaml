@@ -1,0 +1,16 @@
+# Bitnami MongoDB Helm chart értékek
+# Telepítés: helm install mongodb bitnami/mongodb -f k8s/mongodb-values.yaml -n default
+
+auth:
+  enabled: false          # Fejlesztői környezetben egyszerűsítve; produkcióban true!
+
+architecture: standalone  # Egyetlen MongoDB példány (elég tanulmányi célra)
+
+persistence:
+  enabled: true
+  size: 1Gi               # Kis méret helyi klaszterhez
+
+service:
+  nameOverride: mongodb   # A backend "mongodb:27017"-re mutat — ez tartja konzisztensen
+  ports:
+    mongodb: 27017
