@@ -1,30 +1,13 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
+import { NavbarComponent } from './navbar/navbar.component';
+import { ToastComponent } from './toast/toast.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink],
-  template: `
-    <div style="max-width: 900px; margin: 30px auto; font-family: Arial, sans-serif;">
-      <h1 style="text-align: center; color: #2c3e50;">Task Manager</h1>
-
-      <nav style="display: flex; gap: 10px; justify-content: center; margin-bottom: 20px;">
-        <a
-          routerLink="/tasks"
-          style="padding: 10px 16px; background: #3498db; color: white; text-decoration: none; border-radius: 6px;">
-          Feladatok
-        </a>
-
-        <a
-          routerLink="/add"
-          style="padding: 10px 16px; background: #27ae60; color: white; text-decoration: none; border-radius: 6px;">
-          Új feladat
-        </a>
-      </nav>
-
-      <router-outlet></router-outlet>
-    </div>
-  `
+  imports: [RouterOutlet, NavbarComponent, ToastComponent],
+  templateUrl: './app.component.html',
+  styleUrl: './app.scss'
 })
 export class AppComponent {}

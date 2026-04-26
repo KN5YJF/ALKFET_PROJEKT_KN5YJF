@@ -1,0 +1,29 @@
+<div class="task-list">
+  <h2 class="task-list__title">Feladatlista</h2>
+
+  @if (pagedTasks.length > 0) {
+    <ul class="task-list__items">
+      @for (task of pagedTasks; track task.id) {
+        <li class="task-list__item">
+          <div class="task-list__item-left">
+            <input
+              type="checkbox"
+              [checked]="task.isCompleted"
+              (change)="toggleTask(task)"
+            />
+            <span [class.completed]="task.isCompleted">{{ task.title }}</span>
+          </div>
+          <button class="btn btn--danger" (click)="deleteTask(task.id!)">Törlés</button>
+        </li>
+      }
+    </ul>
+
+    <div class="task-list__pagination">
+      <button class="btn" (click)="prevPage()" [disabled]="currentPage === 1">Előző</button>
+      <span>{{ currentPage }} / {{ totalPages }}</span>
+      <button class="btn" (click)="nextPage()" [disabled]="currentPage === totalPages">Következő</button>
+    </div>
+  } @else {
+    <p class="task-list__empty">Nincsenek feladatok.</p>
+  }
+</div>

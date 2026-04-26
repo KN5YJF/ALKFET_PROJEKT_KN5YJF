@@ -1,0 +1,6 @@
+@if (toastService.toast(); as t) {
+  <div class="toast" [class.error]="t.type === 'error'" [class.success]="t.type === 'success'">
+    <span>{{ t.message }}</span>
+    <button class="toast__close" (click)="toastService.dismiss()">✕</button>
+  </div>
+}

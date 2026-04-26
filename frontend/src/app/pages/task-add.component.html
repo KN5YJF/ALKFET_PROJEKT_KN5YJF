@@ -1,0 +1,14 @@
+<div class="task-add">
+  <h2 class="task-add__title">Új feladat</h2>
+
+  <div class="task-add__form">
+    <input
+      class="task-add__input"
+      [(ngModel)]="newTaskTitle"
+      placeholder="Feladat címe"
+      (keyup.enter)="addTask()"
+    />
+    <button class="task-add__btn task-add__btn--save" (click)="addTask()">Mentés</button>
+    <a class="task-add__link" routerLink="/tasks">Vissza a listához</a>
+  </div>
+</div>
