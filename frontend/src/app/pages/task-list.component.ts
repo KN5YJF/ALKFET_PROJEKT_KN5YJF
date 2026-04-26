@@ -53,19 +53,24 @@ export class TaskListComponent implements OnInit {
   }
 
 deleteTask(id: string): void {
-  if (this.deletingIds.has(id)) return; // Dupla hívás hiba
+  if (this.deletingIds.has(id)) return;
   this.deletingIds.add(id);
+
+  // vélelmezett eltávolítás, egyből frissül az UI
+  this.tasks = this.tasks.filter(t => t.id !== id);
+  this.totalPages = Math.max(1, Math.ceil(this.tasks.length / this.pageSize));
+  if (this.currentPage > this.totalPages) this.currentPage = this.totalPages;
+  this.updatePagedTasks();
 
   this.taskService.deleteTask(id).subscribe({
     next: () => {
       this.deletingIds.delete(id);
       this.toastService.show('Feladat sikeresen törölve!');
-      this.loadTasks();
     },
     error: () => {
       this.deletingIds.delete(id);
-      this.toastService.show('Hiba! A feladat törlése nem sikerült.');
-      this.loadTasks();
+      this.toastService.show('Hiba! A feladat törlése sikertelen.');
+      this.loadTasks(); // Csak hiba esetén tölt vissza
     }
   });
 }
