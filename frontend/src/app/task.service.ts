@@ -7,7 +7,7 @@ import { TaskItem } from './task.model';
   providedIn: 'root'
 })
 export class TaskService {
-  private apiUrl = 'http://localhost:5237/api/todo';
+  private apiUrl = '/api/todo';
 
   constructor(private http: HttpClient) {}
 
