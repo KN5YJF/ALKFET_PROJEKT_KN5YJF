@@ -40,10 +40,7 @@ app.UseSwaggerUI(c =>
 });
 
 // FONTOS: A UseCors-nak a UseSwagger után, de a MapControllers előtt KELL lennie!
-app.UseCors(policy => policy
-    .AllowAnyOrigin() 
-    .AllowAnyHeader() 
-    .AllowAnyMethod());
+app.UseCors("AllowAngular");
 
 // Útvonalválasztás engedélyezése
 app.MapControllers();
