@@ -34,7 +34,7 @@ export class TaskListComponent implements OnInit {
         if (this.currentPage > this.totalPages) this.currentPage = this.totalPages;
         this.updatePagedTasks();
       },
-      error: () => this.toastService.show('Hiba: nem sikerült betölteni a feladatokat.')
+      error: () => this.toastService.show('Hiba! Nem sikerült betölteni a feladatokat. Kéréek, próbáld meg ismét.')
     });
   }
 
@@ -51,17 +51,23 @@ export class TaskListComponent implements OnInit {
     if (this.currentPage > 1) { this.currentPage--; this.updatePagedTasks(); }
   }
 
-  deleteTask(id: string): void {
-    this.taskService.deleteTask(id).subscribe({
-      next: () => this.loadTasks(),
-      error: () => this.toastService.show('Hiba: a feladat törlése nem sikerült.')
-    });
-  }
+deleteTask(id: string): void {
+  this.taskService.deleteTask(id).subscribe({
+    next: () => {
+      this.toastService.show('Feladat sikeresen törölve!);
+      this.loadTasks();
+    },
+    error: () => {
+      this.toastService.show('Hiba! A feladat törlése nem sikerült.');
+      this.loadTasks(); // Lista frissítés
+    }
+  });
+}
 
   toggleTask(task: TaskItem): void {
     this.taskService.updateTask({ ...task, isCompleted: !task.isCompleted }).subscribe({
       next: () => this.loadTasks(),
-      error: () => this.toastService.show('Hiba: az állapot frissítése nem sikerült.')
+      error: () => this.toastService.show('Hiba! Az állapot frissítése sikertelen!')
     });
   }
 }
