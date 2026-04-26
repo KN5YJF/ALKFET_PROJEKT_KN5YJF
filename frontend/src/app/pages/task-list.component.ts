@@ -56,8 +56,8 @@ deleteTask(id: string): void {
   if (this.deletingIds.has(id)) return;
   this.deletingIds.add(id);
 
-  // vélelmezett eltávolítás, egyből frissül az UI
-  this.tasks = this.tasks.filter(t => t.id !== id);
+  // Új tömb referencia — Angular change detection
+  this.tasks = [...this.tasks.filter(t => t.id !== id)];
   this.totalPages = Math.max(1, Math.ceil(this.tasks.length / this.pageSize));
   if (this.currentPage > this.totalPages) this.currentPage = this.totalPages;
   this.updatePagedTasks();
@@ -65,12 +65,12 @@ deleteTask(id: string): void {
   this.taskService.deleteTask(id).subscribe({
     next: () => {
       this.deletingIds.delete(id);
-      this.toastService.show('Feladat sikeresen törölve!');
+      this.toastService.show('Sikeres törölés!');
     },
     error: () => {
       this.deletingIds.delete(id);
-      this.toastService.show('Hiba! A feladat törlése sikertelen.');
-      this.loadTasks(); // Csak hiba esetén tölt vissza
+      this.toastService.show('Hiba! A feladat törlése sikertelen');
+      this.loadTasks();
     }
   });
 }
@@ -81,4 +81,3 @@ deleteTask(id: string): void {
       error: () => this.toastService.show('Hiba! Az állapot frissítése sikertelen!')
     });
   }
-}
