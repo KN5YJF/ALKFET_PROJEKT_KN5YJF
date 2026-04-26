@@ -16,6 +16,7 @@ export class TaskListComponent implements OnInit {
   currentPage = 1;
   pageSize = 5;
   totalPages = 1;
+  deletingIds = new Set<string>();  //törlés hibakezeléshez
 
   constructor(
     private taskService: TaskService,
@@ -52,14 +53,19 @@ export class TaskListComponent implements OnInit {
   }
 
 deleteTask(id: string): void {
+  if (this.deletingIds.has(id)) return; // Dupla hívás hiba
+  this.deletingIds.add(id);
+
   this.taskService.deleteTask(id).subscribe({
     next: () => {
-      this.toastService.show('Feladat sikeresen törölve!);
+      this.deletingIds.delete(id);
+      this.toastService.show('Feladat sikeresen törölve!');
       this.loadTasks();
     },
     error: () => {
+      this.deletingIds.delete(id);
       this.toastService.show('Hiba! A feladat törlése nem sikerült.');
-      this.loadTasks(); // Lista frissítés
+      this.loadTasks();
     }
   });
 }
