@@ -1,8 +1,8 @@
-# Task Manager — Teljes projekt dokumentáció
+# Task Manager dokumentáció
 
 ## 1. Projekt leírás
 
-A projekt egy egyszerű **Task Manager** alkalmazás, amely fullstack architektúrában készült.
+A projekt egy **Task Manager** alkalmazás, amely fullstack architektúrában készült.
 A cél egy teljes end-to-end DevOps megoldás megvalósítása volt, amely lefedi:
 
 - Alkalmazásfejlesztés (frontend + backend)
@@ -24,6 +24,7 @@ Az alkalmazás az alábbi funkciókat biztosítja:
 | Feladat törlése | Egy kattintással törölhető bármely feladat |
 | Állapot módosítása | Checkbox segítségével jelölhető kész / nem kész |
 | Lapozás | A lista 5 elemenként lapozható |
+| Hibajelzés | Toast értesítés jelenik meg hiba esetén |
 
 ---
 
@@ -55,7 +56,7 @@ Minden `main` branch-re történő push esetén automatikusan lefut:
 - `ghcr.io/kn5yjf/alkfet_projekt_kn5yjf/backend:latest`
 - `ghcr.io/kn5yjf/alkfet_projekt_kn5yjf/frontend:latest`
 
-### CD — Continuous Deployment (ArgoCD)
+### Continuous Deployment (ArgoCD)
 
 Az ArgoCD figyeli a GitHub repository `k8s/` mappáját, és automatikusan szinkronizálja a Kubernetes klasztert:
 
@@ -69,7 +70,7 @@ Az ArgoCD figyeli a GitHub repository `k8s/` mappáját, és automatikusan szink
 
 A következő eszközök szükségesek a rendszer futtatásához:
 
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/) — Kubernetes engedélyezve
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/)
 - [Helm](https://helm.sh/docs/intro/install/)
 - [Git](https://git-scm.com/)
@@ -93,7 +94,7 @@ NAME             STATUS   ROLES           AGE   VERSION
 docker-desktop   Ready    control-plane   Xd    v1.xx.x
 ```
 
-### 6.2 ArgoCD telepítése (manuális lépés)
+### 6.2 ArgoCD telepítése
 
 ```bash
 kubectl create namespace argocd
@@ -108,21 +109,16 @@ Akkor kész, ha minden pod `1/1 Running` állapotban van.
 
 ### 6.3 ArgoCD UI elérése
 
-Nyiss egy terminált és futtasd (ezt az ablakot tartsd nyitva):
+Nyiss egy terminált és futtasd:
 ```bash
 kubectl port-forward svc/argocd-server -n argocd 9090:443
 ```
 
-Admin jelszó lekérése (új terminálban):
+Admin jelszó lekérése:
 
-**Windows (PowerShell):**
+**PowerShell:**
 ```powershell
 kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | %{ [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($_)) }
-```
-
-**Linux / macOS:**
-```bash
-kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d
 ```
 
 Nyisd meg böngészőben: **https://localhost:9090**
@@ -169,15 +165,15 @@ todo-frontend-xxx       1/1     Running   0
 
 ### 6.6 Alkalmazás elérése
 
-| Komponens | URL |
-|---|---|
-| Frontend | http://localhost:30080 |
-| Backend Swagger | http://localhost:5237/swagger |
-| ArgoCD UI | https://localhost:9090 |
+| Komponens | URL | Megjegyzés |
+|---|---|---|
+| Frontend | http://localhost:30080 | Böngészőből elérhető |
+| ArgoCD UI | https://localhost:9090 | Port-forward szükséges |
+| Backend Swagger | http://localhost:5237/swagger | Csak helyi fejlesztésnél érhető el |
 
 ---
 
-## 7. Használati útmutató (User Guide)
+## 7. Használati útmutató
 
 ### Az alkalmazás megnyitása
 
@@ -196,8 +192,7 @@ A főoldalon (`/tasks`) megjelenik az összes feladat listája. Ha még nincs eg
 2. Írd be a feladat címét a szövegmezőbe
 3. Nyomj **Enter**-t, vagy kattints a **„Mentés"** gombra
 4. Az alkalmazás automatikusan visszairányít a feladatlistára
-
-![Új feladat](docs/add-task.png)
+5. Sikeres mentés esetén zöld toast értesítés jelenik meg
 
 ### Feladat készre jelölése
 
@@ -216,6 +211,12 @@ A főoldalon (`/tasks`) megjelenik az összes feladat listája. Ha még nincs eg
 - Az **„Előző"** és **„Következő"** gombokkal lehet lapozni
 - Az aktuális oldal és az összes oldal száma megjelenik középen (pl. `1 / 3`)
 
+### Hibajelzés
+
+- Ha valamilyen hálózati hiba történik (pl. a backend nem elérhető), piros toast értesítés jelenik meg a jobb alsó sarokban
+- Az üres cím megadása esetén szintén hibaüzenet jelenik meg
+- A toast 3,5 másodperc után automatikusan eltűnik, vagy a **✕** gombbal zárható be
+
 ---
 
 ## 8. Könyvtárszerkezet
@@ -224,19 +225,22 @@ A főoldalon (`/tasks`) megjelenik az összes feladat listája. Ha még nincs eg
 ALKFET_PROJEKT_KN5YJF/
 ├── .github/
 │   └── workflows/
-│       └── ci.yml          # GitHub Actions CI pipeline
+│       └── ci.yml              # GitHub Actions CI pipeline
 ├── backend/
 │   └── MyApi/
-│       ├── Controllers/    # REST API végpontok
-│       ├── Models/         # TaskItem adatmodell
-│       ├── Services/       # MongoDB logika
-│       ├── Program.cs      # App konfiguráció
+│       ├── Controllers/        # REST API végpontok
+│       ├── Models/             # TaskItem adatmodell
+│       ├── Services/           # MongoDB logika
+│       ├── Program.cs          # App konfiguráció
 │       ├── Dockerfile
-│       └── MyApi.http      # CRUD request minták
+│       ├── .gitignore          # bin/ és obj/ kizárva
+│       └── MyApi.http          # CRUD request minták
 ├── frontend/
 │   └── src/
 │       └── app/
-│           ├── pages/      # task-list, task-add komponensek
+│           ├── navbar/         # Navbar komponens
+│           ├── pages/          # task-list, task-add komponensek
+│           ├── toast/          # Toast hibajelzés service + komponens
 │           ├── task.service.ts
 │           └── task.model.ts
 ├── k8s/
@@ -247,12 +251,13 @@ ALKFET_PROJEKT_KN5YJF/
 │   ├── frontend-service.yaml
 │   └── mongodb-values.yaml     # Bitnami Helm chart értékek
 ├── docker-compose.yaml         # Helyi fejlesztői futtatás
-└── README.md
+├── README.md                   # Angol dokumentáció
+└── README_HUN.md               # Magyar dokumentáció
 ```
 
 ---
 
-## 9. Helyi fejlesztői futtatás (Docker Compose)
+## 9. Helyi fejlesztői futtatás, Docker Compose
 
 Kubernetes nélkül, egyszerűen:
 
@@ -266,19 +271,3 @@ Elérés:
 - Swagger: http://localhost:5237/swagger
 
 ---
-
-## 10. Összefoglalás
-
-| Elem | Státusz |
-|---|---|
-| Angular frontend (2 view + pagination) | ✅ |
-| ASP.NET backend (CRUD REST API) | ✅ |
-| MongoDB adatbázis | ✅ |
-| Docker konténerizálás | ✅ |
-| Docker Compose (helyi futtatás) | ✅ |
-| GitHub Actions CI (build + push GHCR) | ✅ |
-| Kubernetes manifest fájlok | ✅ |
-| MongoDB Helm charttal telepítve | ✅ |
-| ArgoCD CD pipeline (GitOps) | ✅ |
-| Telepítési útmutató | ✅ |
-| User guide | ✅ |
