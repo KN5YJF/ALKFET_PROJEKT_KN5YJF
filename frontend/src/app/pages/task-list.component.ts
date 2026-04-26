@@ -81,3 +81,4 @@ deleteTask(id: string): void {
       error: () => this.toastService.show('Hiba! Az állapot frissítése sikertelen!')
     });
   }
+}
