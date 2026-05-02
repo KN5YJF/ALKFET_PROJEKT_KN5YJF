@@ -88,6 +88,5 @@ toggleTask(task: TaskItem): void {
       task.isCompleted = previousValue;
       this.toastService.show('Hiba! Az állapot frissítése sikertelen!');
     }
-  );
-  }
+  });
 }
