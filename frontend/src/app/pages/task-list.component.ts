@@ -76,8 +76,18 @@ deleteTask(id: string): void {
 }
 
 toggleTask(task: TaskItem): void {
-  this.taskService.updateTask({ ...task, isCompleted: !task.isCompleted }).subscribe({
-    next: () => this.loadTasks(),
-    error: () => this.toastService.show('Hiba! Az állapot frissítése sikertelen!')
-  });
+  const previousValue = task.isCompleted;
+
+  task.isCompleted = !task.isCompleted;
+
+  this.taskService.updateTask(task).subscribe({
+    next: () => {
+      this.toastService.show('Feladat állapota frissítve!');
+    },
+    error: () => {
+      task.isCompleted = previousValue;
+      this.toastService.show('Hiba! Az állapot frissítése sikertelen!');
+    }
+  );
+  }
 }
