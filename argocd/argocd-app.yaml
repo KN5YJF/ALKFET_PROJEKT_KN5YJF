@@ -5,13 +5,6 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: mongodb
-    targetRevision: "16.x.x"   # Legújabb stabil Bitnami MongoDB chart
-    helm:
-      valueFiles:
-        - $values/k8s/mongodb-values.yaml
   sources:
     - repoURL: https://charts.bitnami.com/bitnami
       chart: mongodb
