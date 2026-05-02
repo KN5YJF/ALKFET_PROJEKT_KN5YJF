@@ -1,107 +1,62 @@
 1. Projekt leírás
-A projekt egy egyszerű Task Manager alkalmazás, amely fullstack architektúrában készült.
-A cél egy teljes end-to-end DevOps megoldás megvalósítása volt, amely lefedi:
-  -alkalmazás fejlesztés (frontend + backend)
-  -konténerizálás Dockerrel
-  -CI pipeline GitHub Actions használatával  -
-  -Kubernetes alapú futtatás
-  -GitOps alapú CD ArgoCD segítségével
+Ez a projekt egy egyszerű Task Manager webalkalmazás, amely teljes end-to-end DevOps folyamatot valósít meg a fejlesztéstől a deploy-ig.
 
-A rendszer több komponensből áll, amelyek együtt egy automatizált, skálázható környezetben futnak.
+  A rendszer fő elemei:
+     - Angular frontend
+     - ASP.NET Web API backend
+     - MongoDB adatbázis
+     - Docker konténerizáció
+     - GitHub Actions CI pipeline
+     - Kubernetes + ArgoCD
 
 2. Funkciók
-Az alkalmazás az alábbi funkciókat biztosítja:
-  -Feladatok listázása
-  -Új feladat létrehozása
-  -Feladat törlése
-  -Feladat állapotának módosítása (kész / nem kész)
-  -Lapozás a lista kezelésére
-
-A frontend és backend valós idejű HTTP kommunikációval működik együtt.
+    Az alkalmazás az alábbi funkciókat biztosítja:
+     - Feladat létrehozása
+     - Feladat törlése
+     - Feladat kipipálása
+     - Feladat állapotának módosítása (pipa törlése)
 
 3. Architektúra
-A rendszer három fő komponensből áll:
-  Frontend: Angular alapú webalkalmazás
-  Backend: ASP.NET Web API
-  Adatbázis: MongoDB
-Kommunikáció
-A frontend HTTP kérésekkel kommunikál a backend API-val
-A backend MongoDB adatbázisban tárolja az adatokat
-A komponensek Kubernetes Service-eken keresztül érhetők el
-Egyszerűsített felépítés
+    A rendszer három fő komponensből áll:
+      - Frontend HTTP kérésekkel kommunikál a backenddel
+      - Backend kezeli az üzleti logikát
+      - MongoDB tárolja az adatokat
 
-Browser → Frontend → Backend → MongoDB
+        Browser → Frontend → Backend → MongoDB
 
 4. CI/CD pipeline
-A projekt teljes CI/CD pipeline-t használ.
-CI (Continuous Integration)
-GitHub Actions végzi:
-forráskód letöltése
-Docker image-ek buildelése (frontend és backend)
-image-ek feltöltése a GitHub Container Registry-be (GHCR)
-
-Trigger:
-minden push a main branch-re
-
-CD (Continuous Deployment)
-ArgoCD végzi:
-Git repository figyelése
-Kubernetes klaszter állapotának szinkronizálása
-automatikus deploy
-self-healing és prune funkciók
-
-A rendszer GitOps alapú működést valósít meg.
+    A projekt GitHub Actions alapú CI pipeline-t használ:
+      - push → GitHub repository
+      - build:
+              -frontend (Angular build)
+              -backend (.NET publish)
+      - docker image build
 
 5. Kubernetes működés
-A rendszer Kubernetes klaszteren fut (Docker Desktop Kubernetes).
+    A rendszer Kubernetes környezetben is futtatható:
 
-Fő erőforrások
-Deployment (frontend, backend)
-Service (frontend, backend)
-MongoDB (Helm chart segítségével telepítve)
-Hálózat
-A frontend NodePort szolgáltatáson keresztül érhető el
-A backend klaszteren belüli szolgáltatásként működik
-Elérés
-
-Frontend:
-http://localhost:30080
-
-Backend (belső elérés):
-http://backend:8080
+    Deployment → konténerek futtatása
+    Service → elérhetőség biztosítása
+    ArgoCD → automatikus deploy
 
 6. Telepítés
-1. Kubernetes ellenőrzés
-kubectl get nodes
-2. MongoDB telepítés
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm repo update
+    Lokális futtatás - Docker
+    git clone https://github.com/KN5YJF/ALKFET_PROJEKT_KN5YJF.git
+    cd ALKFET_PROJEKT_KN5YJF
 
-helm install mongodb bitnami/mongodb --set auth.enabled=false --set architecture=standalone
-3. Alkalmazás deploy
-kubectl apply -f argocd/argocd-app.yaml -n argocd
-4. Állapot ellenőrzés
-kubectl get pods
-kubectl get svc
-5. Frontend elérés
+    docker compose up --build
 
-http://localhost:30080
+    Elérés:
+    Frontend: http://localhost:4200
+    Backend API: http://localhost:5237/api/todo
 
 7. Használat (user guide)
-Alkalmazás megnyitása
+    - Új feladat hozzáadása
+    - Feladat kipipálása (állapot váltás)
+    - Feladat törlése
 
-Nyisd meg a böngészőben:
-http://localhost:30080
-
-Új feladat létrehozása
-Írd be a feladat nevét a beviteli mezőbe
-Kattints a hozzáadás gombra
-Feladat állapotának módosítása
-A checkbox segítségével jelöld készre / nem készre
-Feladat törlése
-Kattints a törlés ikonra
-Navigáció
-A lista lapozható (pagination)
+ A feladt megközelítéshez hasonlóan, a felhasználói felület minimalista.
+ Ennek megfellően, használata egyszerű és magtólérthetődő.   
 
 8. Összegzés
 A projekt egy konténerizált, Kubernetes-alapú fullstack alkalmazás, amely bemutatja egy modern DevOps pipeline működését.
@@ -114,6 +69,6 @@ GitHub Actions CI pipeline
 GHCR registry használat
 Kubernetes deploy
 Helm alapú adatbázis telepítés
-ArgoCD alapú CD (GitOps)
+ArgoCD alapú
 
-A rendszer automatizált, skálázható és reprodukálható módon működik.
+Remémyeim szerint, a feladatmegoldássorán elértem, a feladatkiírásban meghatározott feladatok megvelósulását és azok kivitelezési szintjét, minőségét.
