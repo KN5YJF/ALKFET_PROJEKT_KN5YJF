@@ -79,7 +79,7 @@ helm repo update
 
 helm install mongodb bitnami/mongodb --set auth.enabled=false --set architecture=standalone
 3. Alkalmazás deploy
-kubectl apply -f k8s/
+kubectl apply -f argocd/argocd-app.yaml -n argocd
 4. Állapot ellenőrzés
 kubectl get pods
 kubectl get svc

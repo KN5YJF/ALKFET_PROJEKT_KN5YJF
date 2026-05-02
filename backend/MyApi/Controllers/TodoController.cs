@@ -36,6 +36,10 @@ public class TodoController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Post(TaskItem newTask)
     {
+        newTask.Title = (newTask.Title ?? string.Empty).Trim();
+        if (string.IsNullOrWhiteSpace(newTask.Title))
+            return BadRequest("A feladat címe nem lehet üres.");
+
         await _todoService.CreateAsync(newTask);
         return CreatedAtAction(nameof(Get), new { id = newTask.Id }, newTask);
     }
@@ -47,6 +51,10 @@ public class TodoController : ControllerBase
 
         if (task is null)
             return NotFound();
+
+        updatedTask.Title = (updatedTask.Title ?? string.Empty).Trim();
+        if (string.IsNullOrWhiteSpace(updatedTask.Title))
+            return BadRequest("A feladat címe nem lehet üres.");
 
         updatedTask.Id = task.Id;
         await _todoService.UpdateAsync(id, updatedTask);
