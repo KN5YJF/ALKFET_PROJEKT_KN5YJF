@@ -75,10 +75,9 @@ deleteTask(id: string): void {
   });
 }
 
-  toggleTask(task: TaskItem): void {
-    this.taskService.updateTask({ ...task, isCompleted: !task.isCompleted }).subscribe({
-      next: () => this.loadTasks(),
-      error: () => this.toastService.show('Hiba! Az állapot frissítése sikertelen!')
-    });
-  }
+toggleTask(task: TaskItem): void {
+  this.taskService.updateTask({ ...task, isCompleted: !task.isCompleted }).subscribe({
+    next: () => this.loadTasks(),
+    error: () => this.toastService.show('Hiba! Az állapot frissítése sikertelen!')
+  });
 }

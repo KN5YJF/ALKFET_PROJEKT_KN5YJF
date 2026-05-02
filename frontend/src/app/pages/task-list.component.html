@@ -10,7 +10,7 @@
               type="checkbox"
               [checked]="task.isCompleted"
               (change)="toggleTask(task)"
-            />
+              />
             <span [class.completed]="task.isCompleted">{{ task.title }}</span>
           </div>
           <button class="btn btn--danger" (click)="deleteTask(task.id!)">Törlés</button>
