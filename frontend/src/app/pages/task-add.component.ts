@@ -5,6 +5,7 @@ import { TaskService } from '../task.service';
 import { TaskItem } from '../task.model';
 import { ToastService } from '../toast/toast.service';
 
+//kreálás, add
 @Component({
   selector: 'app-task-add',
   standalone: true,
@@ -13,6 +14,8 @@ import { ToastService } from '../toast/toast.service';
   styleUrl: './task-add.component.scss'
 })
 export class TaskAddComponent {
+
+  //felhasználó badja a taskot
   newTaskTitle = '';
 
   constructor(
@@ -22,20 +25,33 @@ export class TaskAddComponent {
   ) {}
 
   addTask(): void {
+
+    //üres bevitel ellenőrzés
     if (!this.newTaskTitle.trim()) {
       this.toastService.show('A feladat címe nem lehet üres!');
       return;
     }
 
-    const newTask: TaskItem = { title: this.newTaskTitle.trim(), isCompleted: false };
+    //új objektum
+    const newTask: TaskItem = {
+      title: this.newTaskTitle.trim(),
+      isCompleted: false
+    };
 
+    //backend API -nak küldés
     this.taskService.addTask(newTask).subscribe({
       next: () => {
-        this.toastService.show('Feladat sikeresen mentve!', 'success');
+        //sikeres bemenet, kijelző visszaállítáa
+        this.toastService.show('Feladat sikeresen mentve!');
         this.newTaskTitle = '';
+
+        //navigáció, task lista
         this.router.navigate(['/tasks']);
       },
-      error: () => this.toastService.show('Hiba: a feladat mentése nem sikerült.')
+      error: () => {
+        //hibakezelés
+        this.toastService.show('Hiba! A feladat mentése sikertelen.');
+      }
     });
   }
 }

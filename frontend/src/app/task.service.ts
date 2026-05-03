@@ -11,6 +11,7 @@ export class TaskService {
 
   constructor(private http: HttpClient) {}
 
+//feladat lekérése backendről, új feladat, frissítés, módosítás, törlés
   getTasks(): Observable<TaskItem[]> {
     return this.http.get<TaskItem[]>(this.apiUrl);
   }

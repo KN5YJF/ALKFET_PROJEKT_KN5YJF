@@ -11,12 +11,12 @@ import { ToastService } from '../toast/toast.service';
   styleUrl: './task-list.component.scss'
 })
 export class TaskListComponent implements OnInit {
-  tasks: TaskItem[] = [];
-  pagedTasks: TaskItem[] = [];
-  currentPage = 1;
+  tasks: TaskItem[] = []; //feladat lista
+  pagedTasks: TaskItem[] = []; //megjelenő feladatok
+  currentPage = 1; //felület lapozás érétkei
   pageSize = 5;
   totalPages = 1;
-  deletingIds = new Set<string>();  //törlés hibakezeléshez
+  deletingIds = new Set<string>();  //törlés hibakezelés, többes kattintás probléma
 
   constructor(
     private taskService: TaskService,
@@ -26,7 +26,7 @@ export class TaskListComponent implements OnInit {
   ngOnInit(): void {
     this.loadTasks();
   }
-
+//faladat betöltés api-ból. optimális válasz esetén lapozés és lista frissítés
   loadTasks(): void {
     this.taskService.getTasks().subscribe({
       next: (data) => {
@@ -35,7 +35,7 @@ export class TaskListComponent implements OnInit {
         if (this.currentPage > this.totalPages) this.currentPage = this.totalPages;
         this.updatePagedTasks();
       },
-      error: () => this.toastService.show('Hiba! Nem sikerült betölteni a feladatokat. Kéréek, próbáld meg ismét.')
+      error: () => this.toastService.show('Nem sikerült betölteni a feladatokat. Kérélek, próbáld meg ismét.')
     });
   }
 
@@ -51,12 +51,12 @@ export class TaskListComponent implements OnInit {
   prevPage(): void {
     if (this.currentPage > 1) { this.currentPage--; this.updatePagedTasks(); }
   }
-
+//frontend listából töröl, majd a backenddel szinkron következik
 deleteTask(id: string): void {
   if (this.deletingIds.has(id)) return;
   this.deletingIds.add(id);
 
-  // Új tömb referencia — Angular change detection
+// új tömb referencia. task megjelenés hiba kezelés
   this.tasks = [...this.tasks.filter(t => t.id !== id)];
   this.totalPages = Math.max(1, Math.ceil(this.tasks.length / this.pageSize));
   if (this.currentPage > this.totalPages) this.currentPage = this.totalPages;
@@ -74,7 +74,7 @@ deleteTask(id: string): void {
     }
   });
 }
-
+//felhasználó visszajelzés az UI-ra
 toggleTask(task: TaskItem): void {
   const previousValue = task.isCompleted;
 
@@ -89,4 +89,5 @@ toggleTask(task: TaskItem): void {
       this.toastService.show('Hiba! Az állapot frissítése sikertelen!');
     }
   });
+  }
 }
