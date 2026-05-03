@@ -2,7 +2,7 @@
 
     Ez a projekt egy egyszerű Task Manager webalkalmazás, amely teljes end-to-end DevOps folyamatot valósít meg a fejlesztéstől a deploy-ig.
 
-  A rendszer fő elemei:
+    A rendszer fő elemei:
      - Angular frontend
      - ASP.NET Web API backend
      - MongoDB adatbázis
@@ -67,16 +67,5 @@
  a gomb funkciókanak. Szándékosan, egyszerűenk és gyorsanhasználhatónak terveztem.   
 
 # 8. Összegzés
-  A projekt egy konténerizált, Kubernetes-alapú fullstack alkalmazás, amely bemutatja egy modern DevOps pipeline működését.
 
-  Megvalósított elemek:
-  Frontend és backend alkalmazás
-  MongoDB adatbázis
-  Docker konténerizálás
-  GitHub Actions CI pipeline
-  GHCR registry használat
-  Kubernetes deploy
-  Helm alapú adatbázis telepítés
-  ArgoCD alapú
-
-Reményeim szerint a feladatmegoldássorán elértem, a kiírásban meghatározott feladatok megvalósulását és azok kivitelezési szintje megfelelő.
+Reményeim szerint a feladatmegoldássorán elértem, a kiírásban meghatározott feladatok megvalósulását és azok kivitelezési szintje kielégítő.
