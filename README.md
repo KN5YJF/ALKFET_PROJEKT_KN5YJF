@@ -76,7 +76,7 @@ git clone: 		https://github.com/KN5YJF/ALKFET_PROJEKT_KN5YJF.git
 				- Feladat állapotának módosítása
 				- Feladat törlése
 
-	A felhasználói felület minimalista, célja az egyszerű és gyors használhatóság.
+	        A felhasználói felület minimalista, célja az egyszerű és gyors használhatóság.
 
 ---
 
@@ -87,4 +87,4 @@ git clone: 		https://github.com/KN5YJF/ALKFET_PROJEKT_KN5YJF.git
 				- korszerű sandardok mentén menjen végbe a fejlesztési feladat
 				- ezzel gyakorlatban oktat arra, hogy  szakmai és gyakorlatias legyen az előremenetel
 				- lehetővé teszi, hogy az eredeti projekttől független fejlesztők is hatákonyan 
-          rálássanak az alkalmazásra
+            rálássanak az alkalmazásra
