@@ -86,5 +86,4 @@ git clone: 		https://github.com/KN5YJF/ALKFET_PROJEKT_KN5YJF.git
 	Véleméynem szerint, a feladat szellemisége - célja: 
 				- korszerű sandardok mentén menjen végbe a fejlesztési feladat
 				- ezzel gyakorlatban oktat arra, hogy  szakmai és gyakorlatias legyen az előremenetel
-				- lehetővé teszi, hogy az eredeti projekttől független fejlesztők is hatákonyan 
-            rálássanak az alkalmazásra
+				- lehetővé teszi, hogy az eredeti projekttől független fejlesztők is hatákonyan rálássanak az alkalmazásra
