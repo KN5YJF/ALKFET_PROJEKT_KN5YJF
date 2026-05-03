@@ -61,9 +61,7 @@ A rendszer Kubernetes környezetben is futtatható:
 
 ## Lokális futtatás (Docker)
 
-```bash
 git clone: 		https://github.com/KN5YJF/ALKFET_PROJEKT_KN5YJF.git
-cd ALKFET_PROJEKT_KN5YJF
 
 docker compose up --build
 
