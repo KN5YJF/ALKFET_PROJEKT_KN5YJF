@@ -1,5 +1,5 @@
 1. Projekt leírás
-Ez a projekt egy egyszerű Task Manager webalkalmazás, amely teljes end-to-end DevOps folyamatot valósít meg a fejlesztéstől a deploy-ig.
+    Ez a projekt egy egyszerű Task Manager webalkalmazás, amely teljes end-to-end DevOps folyamatot valósít meg a fejlesztéstől a deploy-ig.
 
   A rendszer fő elemei:
      - Angular frontend
@@ -26,11 +26,11 @@ Ez a projekt egy egyszerű Task Manager webalkalmazás, amely teljes end-to-end 
 
 4. CI/CD pipeline
     A projekt GitHub Actions alapú CI pipeline-t használ:
-      - push → GitHub repository
+      - push:    gitHub repository
       - build:
-              -frontend (Angular build)
-              -backend (.NET publish)
-      - docker image build
+                -frontend (Angular build)
+                -backend (.NET publish)
+      - docker:  image build
 
 5. Kubernetes működés
     A rendszer Kubernetes környezetben is futtatható:
@@ -48,6 +48,7 @@ Ez a projekt egy egyszerű Task Manager webalkalmazás, amely teljes end-to-end 
 
     Elérés:
     Frontend: http://localhost:4200
+
     Backend API: http://localhost:5237/api/todo
 
 7. Használat (user guide)
