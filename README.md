@@ -63,8 +63,6 @@ A rendszer Kubernetes környezetben is futtatható:
 
 git clone: 		https://github.com/KN5YJF/ALKFET_PROJEKT_KN5YJF.git
 
-docker compose up --build
-
 	Elérés:
 				Frontend: 		http://localhost:4200
 				Backend API: 	http://localhost:5237/api/todo
@@ -88,4 +86,5 @@ docker compose up --build
 	Véleméynem szerint, a feladat szellemisége - célja: 
 				- korszerű sandardok mentén menjen végbe a fejlesztési feladat
 				- ezzel gyakorlatban oktat arra, hogy  szakmai és gyakorlatias legyen az előremenetel
-				- lehetővé teszi, hogy az eredeti projekttől független fejlesztők is hatákonyan rálássanak az alkalmazásra
+				- lehetővé teszi, hogy az eredeti projekttől független fejlesztők is hatákonyan 
+          rálássanak az alkalmazásra
